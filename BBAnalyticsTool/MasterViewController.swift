@@ -72,6 +72,7 @@ class MasterViewController: UITableViewController {
 
         let object = objects[indexPath.row] as! NSDate
         cell.textLabel!.text = object.description
+        cell.textLabel?.buddybuildViewIsPrivate = true
         return cell
     }
 

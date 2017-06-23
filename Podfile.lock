@@ -1,0 +1,18 @@
+PODS:
+  - Aspects (1.4.1)
+  - BuddyBuildSDK (1.0.16)
+  - NewRelicAgent (5.14.0)
+
+DEPENDENCIES:
+  - Aspects (~> 1.4)
+  - BuddyBuildSDK (~> 1.0.16)
+  - NewRelicAgent (~> 5.14)
+
+SPEC CHECKSUMS:
+  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  BuddyBuildSDK: 2c5469eee2981a3365386e46393e97068d75e4f4
+  NewRelicAgent: 2227f25e868d723a59c7a0f9f7d42c3813ff4682
+
+PODFILE CHECKSUM: e95165ba661e6b1b8236b3ad3829e42ba84d4145
+
+COCOAPODS: 1.2.1
