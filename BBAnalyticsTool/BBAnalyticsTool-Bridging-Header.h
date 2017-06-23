@@ -3,6 +3,7 @@
 //
 
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
+#import "NewRelicAgent/NewRelic.h"
 
 
 @interface UIViewController (flakey)
