@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Aspects
 
 class MasterViewController: UITableViewController {
 
@@ -73,6 +74,12 @@ class MasterViewController: UITableViewController {
         let object = objects[indexPath.row] as! NSDate
         cell.textLabel!.text = object.description
         cell.textLabel?.buddybuildViewIsPrivate = true
+        
+        
+        try? cell.aspect_hook(#selector(UIView.layoutSubviews), with: AspectOptions.positionBefore, usingBlock: {
+            NSLog("aspect run!")
+        })
+        
         return cell
     }
 
