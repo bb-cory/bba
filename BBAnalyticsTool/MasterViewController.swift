@@ -60,7 +60,6 @@ class MasterViewController: UITableViewController {
     }
     
     func middleButton(_ sender: Any) {
-        //NewRelic.start(withApplicationToken:"AA3a8fe5976888732160e763846ea11f8a3d551942")
     }
 
     // MARK: - Segues
