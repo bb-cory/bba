@@ -12,7 +12,7 @@ import Aspects
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = [Any]()
+    var objects = [String]()
 
 
     override func viewDidLoad() {
@@ -22,6 +22,10 @@ class MasterViewController: UITableViewController {
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
+        
+        let addButtonLeft = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObjectLeft(_:)))
+        navigationItem.leftBarButtonItem = addButtonLeft
+        
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
@@ -39,7 +43,13 @@ class MasterViewController: UITableViewController {
     }
 
     func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
+        objects.insert("right", at: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
+    func insertNewObjectLeft(_ sender: Any) {
+        objects.insert("left", at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
@@ -49,7 +59,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
+                let object = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -71,14 +81,16 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let object = objects[indexPath.row] as! NSDate
+        let object = objects[indexPath.row]
         cell.textLabel!.text = object.description
-        cell.textLabel?.buddybuildViewIsPrivate = true
         
-        
-//        try? cell.aspect_hook(#selector(UIView.layoutSubviews), with: AspectOptions.positionBefore, usingBlock: {
-//            NSLog("aspect run!")
-//        })
+        if (object == "left") {
+            try? cell.aspect_hook(#selector(UIView.layoutSubviews), with: AspectOptions.positionBefore, usingBlock: {
+                NSLog("aspect run!")
+            })
+        } else {
+            cell.textLabel?.buddybuildViewIsPrivate = true
+        }
         
         return cell
     }
