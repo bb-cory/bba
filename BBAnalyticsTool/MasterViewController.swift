@@ -26,6 +26,11 @@ class MasterViewController: UITableViewController {
         let addButtonLeft = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObjectLeft(_:)))
         navigationItem.leftBarButtonItem = addButtonLeft
         
+        let middleButton = UIButton(type: .system)
+        middleButton.setTitleColor(.black, for: .normal)
+        middleButton.addTarget(self, action: #selector(middleButton(_:)), for: .primaryActionTriggered)
+        navigationItem.titleView = middleButton
+        
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
@@ -52,6 +57,10 @@ class MasterViewController: UITableViewController {
         objects.insert("left", at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
+    func middleButton(_ sender: Any) {
+        NewRelic.start(withApplicationToken:"AA3a8fe5976888732160e763846ea11f8a3d551942")
     }
 
     // MARK: - Segues
@@ -82,7 +91,7 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         let object = objects[indexPath.row]
-        cell.textLabel!.text = object.description
+        cell.textLabel!.text = object
         
         if (object == "left") {
             try? cell.aspect_hook(#selector(UIView.layoutSubviews), with: AspectOptions.positionBefore, usingBlock: {
