@@ -90,7 +90,7 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         let object = objects[indexPath.row]
-        cell.textLabel!.text = object
+        cell.textLabel?.text = object
         
         if (object == "left") {
             
