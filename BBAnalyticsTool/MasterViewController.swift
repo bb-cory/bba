@@ -94,9 +94,15 @@ class MasterViewController: UITableViewController {
         cell.textLabel!.text = object
         
         if (object == "left") {
-            try? cell.aspect_hook(#selector(UIView.layoutSubviews), with: AspectOptions.positionBefore, usingBlock: {
+            
+            
+            let block: @convention(block) (Void) -> Void = {
                 NSLog("aspect run!")
-            })
+            }
+            
+            let objectBlock = unsafeBitCast(block, to: AnyObject.self)
+            
+            try? cell.aspect_hook(#selector(getter: UITableViewCell.contentView), with: AspectOptions.positionBefore, usingBlock: objectBlock)
         } else {
             cell.textLabel?.buddybuildViewIsPrivate = true
         }
