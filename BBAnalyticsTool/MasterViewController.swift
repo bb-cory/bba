@@ -102,7 +102,7 @@ class MasterViewController: UITableViewController {
             
             let objectBlock = unsafeBitCast(block, to: AnyObject.self)
             
-            try? cell.aspect_hook(#selector(getter: UITableViewCell.contentView), with: AspectOptions.positionBefore, usingBlock: objectBlock)
+            try? cell.aspect_hook(#selector(UIView.layoutSubviews), with: AspectOptions.positionBefore, usingBlock: objectBlock)
         } else {
             cell.textLabel?.buddybuildViewIsPrivate = true
         }
